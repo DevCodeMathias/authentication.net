@@ -1,4 +1,4 @@
-using authentication_API.domain.Service;
+using API_AUTENTICATION.domain.Service;
 using authentication_API.infrastructure.data;
 using authentication_API.infrastructure.repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

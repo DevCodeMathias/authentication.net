@@ -3,7 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace authentication_API.domain.Service
+namespace API_AUTENTICATION.domain.Service
 {
     public class TokenService
     {

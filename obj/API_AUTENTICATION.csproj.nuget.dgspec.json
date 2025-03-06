@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Asus\\source\\repos\\API_AUTENTICATION\\API_AUTENTICATION.csproj": {}
+    "C:\\Users\\Asus\\source\\repos\\API_authentication\\API_AUTENTICATION.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Asus\\source\\repos\\API_AUTENTICATION\\API_AUTENTICATION.csproj": {
+    "C:\\Users\\Asus\\source\\repos\\API_authentication\\API_AUTENTICATION.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Asus\\source\\repos\\API_AUTENTICATION\\API_AUTENTICATION.csproj",
+        "projectUniqueName": "C:\\Users\\Asus\\source\\repos\\API_authentication\\API_AUTENTICATION.csproj",
         "projectName": "API_AUTENTICATION",
-        "projectPath": "C:\\Users\\Asus\\source\\repos\\API_AUTENTICATION\\API_AUTENTICATION.csproj",
+        "projectPath": "C:\\Users\\Asus\\source\\repos\\API_authentication\\API_AUTENTICATION.csproj",
         "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Asus\\source\\repos\\API_AUTENTICATION\\obj\\",
+        "outputPath": "C:\\Users\\Asus\\source\\repos\\API_AUTHENTICATION\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -17,10 +17,13 @@ namespace authentication_API.infrastructure.repositories
         {
             _context.User.Add(user);
             await _context.SaveChangesAsync();
+
+
         }
 
-        public async Task<User> GetUserByEmail(string email)
+        public async Task<User> getUserByEmail(string email)
         {
+
             return await _context.User.FirstOrDefaultAsync(x => x.Email == email);
         }
     }

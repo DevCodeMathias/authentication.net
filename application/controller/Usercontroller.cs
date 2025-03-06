@@ -1,8 +1,8 @@
-﻿using authentication_API.domain.dto;
-using authentication_API.domain.Service;
+﻿using API_AUTENTICATION.domain.Service;
+using authentication_API.domain.dto;
 using Microsoft.AspNetCore.Mvc;
 
-namespace authentication_API.controller
+namespace API_AUTENTICATION.application.controller
 {
     [Route("api/[controller]")]
     public class Usercontroller : ControllerBase
@@ -13,7 +13,7 @@ namespace authentication_API.controller
         public Usercontroller(UserService userService, authenticationService authenticationService, TokenService tokenService)
         {
             this.userService = userService;
-            this._authenticationService = authenticationService;
+            _authenticationService = authenticationService;
             this.tokenService = tokenService;
 
         }
@@ -23,19 +23,18 @@ namespace authentication_API.controller
         public async Task<IActionResult> Post([FromBody] UserDto user)
         {
             await userService.AddUser(user);
-            return Ok(new { message = "Usuário criado com sucesso." });
+            return Created();
         }
 
-        [HttpPost("login")]
+        [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] UserDto user)
         {
-
 
             bool isAuthenticated = await _authenticationService.login(user.Email, user.PasswordHash);
 
             if (!isAuthenticated)
             {
-                return Unauthorized("Credenciais inválidas.");
+                return Unauthorized("password or username Invalid.");
             }
 
             string jwtToken = tokenService.GenerateToken(user.Email);

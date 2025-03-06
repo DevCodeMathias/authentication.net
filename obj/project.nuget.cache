@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "wqPpVrsn2KY=",
+  "dgSpecHash": "5hdp/6xIVWU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Asus\\source\\repos\\API_AUTENTICATION\\API_AUTENTICATION.csproj",
+  "projectFilePath": "C:\\Users\\Asus\\source\\repos\\API_authentication\\API_AUTENTICATION.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Asus\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.0\\microsoft.aspnetcore.authentication.jwtbearer.6.0.0.nupkg.sha512",
     "C:\\Users\\Asus\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

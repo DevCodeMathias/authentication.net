@@ -2,7 +2,7 @@
 using authentication_API.infrastructure.repositories;
 using Microsoft.AspNetCore.Identity;
 
-namespace authentication_API.domain.Service
+namespace API_AUTENTICATION.domain.Service
 {
     public class authenticationService
     {
@@ -16,7 +16,7 @@ namespace authentication_API.domain.Service
 
         public async Task<bool> login(string email, string password)
         {
-            User user = await _userRepository.GetUserByEmail(email);
+            User user = await _userRepository.getUserByEmail(email);
             if (user == null)
             {
                 return false;

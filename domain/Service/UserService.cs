@@ -1,10 +1,12 @@
-﻿using authentication_API.domain.dto;
+﻿using API_AUTENTICATION.domain.exception;
+using authentication_API.domain.dto;
 using authentication_API.domain.entities;
 using authentication_API.domain.mapper;
 using authentication_API.infrastructure.repositories;
 using Microsoft.AspNetCore.Identity;
+using static System.Net.WebRequestMethods;
 
-namespace authentication_API.domain.Service
+namespace API_AUTENTICATION.domain.Service
 {
     public class UserService
     {
@@ -19,10 +21,23 @@ namespace authentication_API.domain.Service
 
         public async Task AddUser(UserDto userDto)
         {
+
+            await ValidateEmailNotExistsAsync(userDto.Email);
             User user = mapperUser.toDomain(userDto);
             user.PasswordHash = _passwordHasher.HashPassword(user, userDto.PasswordHash);
             await _userRepository.AddSync(user);
+            return;
 
+        }
+
+       private async Task ValidateEmailNotExistsAsync(string email)
+        {
+            User user = await _userRepository.getUserByEmail(email);
+
+            if (user != null)
+            {
+                throw new EmailAlreadyExistsException();
+            }
         }
     }
 }
