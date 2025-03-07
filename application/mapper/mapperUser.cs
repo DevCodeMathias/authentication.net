@@ -1,7 +1,7 @@
-﻿using authentication_API.domain.dto;
+﻿using API_AUTENTICATION.application.dto;
 using authentication_API.domain.entities;
 
-namespace authentication_API.domain.mapper
+namespace API_AUTENTICATION.application.mapper
 {
     public class mapperUser
     {

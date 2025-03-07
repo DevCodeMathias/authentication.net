@@ -2,7 +2,7 @@
 using authentication_API.infrastructure.repositories;
 using Microsoft.AspNetCore.Identity;
 
-namespace API_AUTENTICATION.domain.Service
+namespace API_AUTENTICATION.application.Service
 {
     public class authenticationService
     {

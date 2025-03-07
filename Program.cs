@@ -1,4 +1,4 @@
-using API_AUTENTICATION.domain.Service;
+using API_AUTENTICATION.application.Service;
 using API_AUTENTICATION.infrastructure.middleware;
 using authentication_API.infrastructure.data;
 using authentication_API.infrastructure.repositories;

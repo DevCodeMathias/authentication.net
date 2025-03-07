@@ -1,5 +1,5 @@
-﻿using API_AUTENTICATION.domain.Service;
-using authentication_API.domain.dto;
+﻿using API_AUTENTICATION.application.dto;
+using API_AUTENTICATION.application.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_AUTENTICATION.application.controller
