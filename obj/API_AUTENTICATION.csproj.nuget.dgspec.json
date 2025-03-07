@@ -11,7 +11,7 @@
         "projectName": "API_AUTENTICATION",
         "projectPath": "C:\\Users\\Asus\\source\\repos\\API_authentication\\API_AUTENTICATION.csproj",
         "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Asus\\source\\repos\\API_AUTHENTICATION\\obj\\",
+        "outputPath": "C:\\Users\\Asus\\source\\repos\\API_authentication\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -53,6 +53,10 @@
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[9.0.2, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
             },
             "Npgsql": {
               "target": "Package",

@@ -108,3 +108,4 @@ C:\Users\Asus\source\repos\API_AUTHENTICATION\obj\Debug\net8.0\refint\API_AUTENT
 C:\Users\Asus\source\repos\API_AUTHENTICATION\obj\Debug\net8.0\API_AUTENTICATION.pdb
 C:\Users\Asus\source\repos\API_AUTHENTICATION\obj\Debug\net8.0\API_AUTENTICATION.genruntimeconfig.cache
 C:\Users\Asus\source\repos\API_AUTHENTICATION\obj\Debug\net8.0\ref\API_AUTENTICATION.dll
+C:\Users\Asus\source\repos\API_authentication\bin\Debug\net8.0\Newtonsoft.Json.dll
