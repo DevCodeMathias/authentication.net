@@ -23,7 +23,11 @@ namespace API_AUTENTICATION.application.controller
         public async Task<IActionResult> Post([FromBody] UserDto user)
         {
             await userService.AddUser(user);
-            return Created();
+            return StatusCode(201, new
+            {
+                message = "Usuário cadastrado com sucesso!",
+            
+            });
         }
 
         [HttpPost("Login")]
@@ -40,6 +44,12 @@ namespace API_AUTENTICATION.application.controller
             string jwtToken = tokenService.GenerateToken(user.Email);
 
             return Ok(new { Token = jwtToken });
+        }
+
+        [HttpGet("healthCheck")]
+        public async Task<IActionResult> healthCheck()
+        {
+            return Ok("API is running");
         }
     }
 }

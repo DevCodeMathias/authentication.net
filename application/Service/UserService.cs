@@ -20,14 +20,14 @@ namespace API_AUTENTICATION.application.Service
 
         }
 
-        public async Task AddUser(UserDto userDto)
+        public async Task<User> AddUser(UserDto userDto)
         {
 
             await ValidateEmailNotExistsAsync(userDto.Email);
             User user = Create(userDto);
 
             await _userRepository.AddSync(user);
-            return;
+            return user;
 
         }
 
