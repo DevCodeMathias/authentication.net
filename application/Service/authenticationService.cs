@@ -1,14 +1,16 @@
-﻿using authentication_API.domain.entities;
+﻿using API_AUTENTICATION.domain.Interfaces.Repository;
+using API_AUTENTICATION.domain.Interfaces.Service;
+using authentication_API.domain.entities;
 using authentication_API.infrastructure.repositories;
 using Microsoft.AspNetCore.Identity;
 
 namespace API_AUTENTICATION.application.Service
 {
-    public class authenticationService
+    public class AuthenticationService : IAuthenticationService
     {
-        private readonly UserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
         private readonly PasswordHasher<User> _passwordHasher;
-        public authenticationService(UserRepository userRepository)
+        public AuthenticationService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
             _passwordHasher = new PasswordHasher<User>();
@@ -25,5 +27,6 @@ namespace API_AUTENTICATION.application.Service
             PasswordVerificationResult result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, password);
             return result == PasswordVerificationResult.Success;
         }
+
     }
 }

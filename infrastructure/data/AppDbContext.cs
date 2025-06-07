@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using authentication_API.domain.entities;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace authentication_API.infrastructure.data
 {
@@ -6,7 +8,10 @@ namespace authentication_API.infrastructure.data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
+            
+
         }
-        public DbSet<domain.entities.User> User { get; set; }
+        public DbSet<User> User { get; set; }
+
     }
 }

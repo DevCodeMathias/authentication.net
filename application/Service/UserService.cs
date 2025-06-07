@@ -1,6 +1,8 @@
 ﻿using API_AUTENTICATION.application.dto;
 using API_AUTENTICATION.application.mapper;
 using API_AUTENTICATION.domain.exception;
+using API_AUTENTICATION.domain.Interfaces.Repository;
+using API_AUTENTICATION.domain.Interfaces.Service;
 using authentication_API.domain.entities;
 using authentication_API.infrastructure.repositories;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -9,11 +11,12 @@ using static System.Net.WebRequestMethods;
 
 namespace API_AUTENTICATION.application.Service
 {
-    public class UserService
+    public class UserService : IUserService
     {
-        private readonly UserRepository _userRepository;
+     
+        private readonly IUserRepository _userRepository;
         private readonly PasswordHasher<User> _passwordHasher;
-        public UserService(UserRepository userRepository)
+        public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
             _passwordHasher = new PasswordHasher<User>();
@@ -48,5 +51,7 @@ namespace API_AUTENTICATION.application.Service
 
             return user;
         }
+
+
     }
 }

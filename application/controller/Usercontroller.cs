@@ -1,5 +1,6 @@
 ﻿using API_AUTENTICATION.application.dto;
 using API_AUTENTICATION.application.Service;
+using API_AUTENTICATION.domain.Interfaces.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_AUTENTICATION.application.controller
@@ -7,14 +8,14 @@ namespace API_AUTENTICATION.application.controller
     [Route("api/[controller]")]
     public class Usercontroller : ControllerBase
     {
-        private readonly UserService userService;
-        private readonly authenticationService _authenticationService;
-        private readonly TokenService tokenService;
-        public Usercontroller(UserService userService, authenticationService authenticationService, TokenService tokenService)
+        private readonly IUserService _userService;
+        private readonly IAuthenticationService _authenticationService;
+        private readonly ITokenService _tokenService;
+        public Usercontroller(IUserService userService, IAuthenticationService authenticationService, ITokenService tokenService)
         {
-            this.userService = userService;
+            _userService = userService;
             _authenticationService = authenticationService;
-            this.tokenService = tokenService;
+            _tokenService = tokenService;
 
         }
 
@@ -22,7 +23,7 @@ namespace API_AUTENTICATION.application.controller
         [HttpPost("Register")]
         public async Task<IActionResult> Post([FromBody] UserDto user)
         {
-            await userService.AddUser(user);
+            await _userService.AddUser(user);
             return StatusCode(201, new
             {
                 message = "Usuário cadastrado com sucesso!",
@@ -41,7 +42,7 @@ namespace API_AUTENTICATION.application.controller
                 return Unauthorized("password or username Invalid.");
             }
 
-            string jwtToken = tokenService.GenerateToken(user.Email);
+            string jwtToken = _tokenService.GenerateToken(user.Email);
 
             return Ok(new { Token = jwtToken });
         }

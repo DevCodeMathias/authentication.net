@@ -1,10 +1,11 @@
-﻿using authentication_API.domain.entities;
+﻿using API_AUTENTICATION.domain.Interfaces.Repository;
+using authentication_API.domain.entities;
 using authentication_API.infrastructure.data;
 using Microsoft.EntityFrameworkCore;
 
 namespace authentication_API.infrastructure.repositories
 {
-    public class UserRepository
+    public class UserRepository: IUserRepository
     {
         private readonly AppDbContext _context;
 

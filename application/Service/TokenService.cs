@@ -1,11 +1,12 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using API_AUTENTICATION.domain.Interfaces.Service;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
 namespace API_AUTENTICATION.application.Service
 {
-    public class TokenService
+    public class TokenService : ITokenService
     {
         private readonly string _secretKey;
         private readonly string _issuer;
@@ -63,5 +64,6 @@ namespace API_AUTENTICATION.application.Service
                 return null;
             }
         }
+
     }
 }
