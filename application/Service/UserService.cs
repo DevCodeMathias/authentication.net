@@ -16,9 +16,13 @@ namespace API_AUTENTICATION.application.Service
      
         private readonly IUserRepository _userRepository;
         private readonly PasswordHasher<User> _passwordHasher;
-        public UserService(IUserRepository userRepository)
+        private readonly IUserQueueSender _queueSender;
+        public UserService(
+            IUserRepository userRepository,
+            IUserQueueSender queueSender)
         {
             _userRepository = userRepository;
+            _queueSender = queueSender;
             _passwordHasher = new PasswordHasher<User>();
 
         }
@@ -30,7 +34,11 @@ namespace API_AUTENTICATION.application.Service
             User user = Create(userDto);
 
             await _userRepository.AddSync(user);
+
+
+            await _queueSender.SendUserToQueueAsync(user);
             return user;
+            
 
         }
 
