@@ -10,6 +10,7 @@ namespace API_AUTENTICATION.application.Service
     {
         private readonly IUserRepository _userRepository;
         private readonly PasswordHasher<User> _passwordHasher;
+        
         public AuthenticationService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
@@ -24,9 +25,13 @@ namespace API_AUTENTICATION.application.Service
                 return false;
             }
 
+            if(user.IsVerified == false)
+            {
+                return false;
+            }
+
             PasswordVerificationResult result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, password);
             return result == PasswordVerificationResult.Success;
         }
-
     }
 }

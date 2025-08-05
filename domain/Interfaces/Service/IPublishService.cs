@@ -3,8 +3,9 @@ using authentication_API.domain.entities;
 
 namespace API_AUTENTICATION.domain.Interfaces.Service
 {
-    public interface IUserQueueSender
+    public interface IPublishService
     {
-        Task SendUserToQueueAsync(MessageEnvelope<User> user);
+
+       Task PublishToTopicAsync(MessageEnvelope<User> UserEnvelope);
     }
 }

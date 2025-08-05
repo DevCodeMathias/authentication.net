@@ -11,6 +11,7 @@ namespace API_AUTENTICATION.application.controller
         private readonly IUserService _userService;
         private readonly IAuthenticationService _authenticationService;
         private readonly ITokenService _tokenService;
+       
         public Usercontroller(IUserService userService, IAuthenticationService authenticationService, ITokenService tokenService)
         {
             _userService = userService;
@@ -26,7 +27,7 @@ namespace API_AUTENTICATION.application.controller
             await _userService.AddUser(user);
             return StatusCode(201, new
             {
-                message = "Usuário cadastrado com sucesso!",
+                message = "Registration successfuly",
             
             });
         }

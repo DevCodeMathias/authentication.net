@@ -1,5 +1,7 @@
-﻿using API_AUTENTICATION.application.dto;
+﻿using Amazon.Runtime.Internal;
+using API_AUTENTICATION.application.dto;
 using API_AUTENTICATION.application.mapper;
+using API_AUTENTICATION.domain.entities;
 using API_AUTENTICATION.domain.exception;
 using API_AUTENTICATION.domain.Interfaces.Repository;
 using API_AUTENTICATION.domain.Interfaces.Service;
@@ -7,6 +9,9 @@ using authentication_API.domain.entities;
 using authentication_API.infrastructure.repositories;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
+using System.Drawing;
+using System.Text.Json;
 using static System.Net.WebRequestMethods;
 
 namespace API_AUTENTICATION.application.Service
@@ -19,27 +24,27 @@ namespace API_AUTENTICATION.application.Service
         private readonly IUserQueueSender _queueSender;
         public UserService(
             IUserRepository userRepository,
-            IUserQueueSender queueSender)
+            IUserQueueSender queueSender
+            )
         {
             _userRepository = userRepository;
-            _queueSender = queueSender;
             _passwordHasher = new PasswordHasher<User>();
+            _queueSender = queueSender;
 
         }
 
-        public async Task<User> AddUser(UserDto userDto)
+        public async Task AddUser(UserDto userDto)
         {
-
             await ValidateEmailNotExistsAsync(userDto.Email);
-            User user = Create(userDto);
+            var user  = ToUser(userDto);
 
             await _userRepository.AddSync(user);
+            var envelope = createEnvelope(user, "UserCreation");
+
+            await _queueSender.SendUserToQueueAsync(envelope);
 
 
-            await _queueSender.SendUserToQueueAsync(user);
-            return user;
-            
-
+            return;
         }
 
         private async Task ValidateEmailNotExistsAsync(string email)
@@ -52,7 +57,22 @@ namespace API_AUTENTICATION.application.Service
             }
         }
 
-        private User Create(UserDto userDto)
+      
+        private MessageEnvelope<User> createEnvelope(User user, string eventType)
+        {
+            MessageEnvelope<User> envelope = new MessageEnvelope<User>
+            {
+                MessageId = Guid.NewGuid(),
+                TimesTamps = DateTime.UtcNow,
+                EventType = eventType,
+                source = "API_AUTENTICATION.application.Service.UserService",
+                Payload = user
+            };
+            return envelope;
+        }
+
+
+        private User ToUser(UserDto userDto)
         {
             User user = mapperUser.toDomain(userDto);
             user.PasswordHash = _passwordHasher.HashPassword(user, userDto.PasswordHash);
@@ -60,6 +80,25 @@ namespace API_AUTENTICATION.application.Service
             return user;
         }
 
+        public async Task CheckserExists(string userId)
+        {
+         
+             await _userRepository.SetUserAsVerifiedAsync(userId);
+
+            int IdNumber = Convert.ToInt32(userId);
+
+            var user = await _userRepository.GetUserByIdAsync(IdNumber);
+            if (user == null)
+            {
+                throw new KeyNotFoundException($"User with ID {IdNumber} not found.");
+            }
+
+            var UserEnvelope  =  createEnvelope(user, "UserVerification");
+
+            await _queueSender.SendUserToQueueAsync(UserEnvelope); 
+
+            return;
+        }
 
     }
 }

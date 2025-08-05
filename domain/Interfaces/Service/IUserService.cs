@@ -1,10 +1,13 @@
 ﻿using API_AUTENTICATION.application.dto;
+using API_AUTENTICATION.domain.entities;
 using authentication_API.domain.entities;
 
 namespace API_AUTENTICATION.domain.Interfaces.Service
 {
     public interface IUserService
     {
-        Task<User> AddUser(UserDto userDto);
+        Task AddUser(UserDto userDto);
+
+        Task CheckserExists(String userId);
     }
 }

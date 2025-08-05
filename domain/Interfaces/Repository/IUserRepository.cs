@@ -8,5 +8,8 @@ namespace API_AUTENTICATION.domain.Interfaces.Repository
 
         Task<User> getUserByEmail(string email);
 
+        Task SetUserAsVerifiedAsync(string userId);
+
+        Task<User> GetUserByIdAsync(int id);
     }
 }
