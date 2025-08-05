@@ -1,24 +1,17 @@
-﻿using Amazon.Runtime.Internal;
-using API_AUTENTICATION.application.dto;
+﻿using API_AUTENTICATION.application.dto;
 using API_AUTENTICATION.application.mapper;
 using API_AUTENTICATION.domain.entities;
 using API_AUTENTICATION.domain.exception;
 using API_AUTENTICATION.domain.Interfaces.Repository;
 using API_AUTENTICATION.domain.Interfaces.Service;
 using authentication_API.domain.entities;
-using authentication_API.infrastructure.repositories;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
-using System.Drawing;
-using System.Text.Json;
-using static System.Net.WebRequestMethods;
 
 namespace API_AUTENTICATION.application.Service
 {
     public class UserService : IUserService
     {
-     
+
         private readonly IUserRepository _userRepository;
         private readonly PasswordHasher<User> _passwordHasher;
         private readonly IUserQueueSender _queueSender;
@@ -36,7 +29,7 @@ namespace API_AUTENTICATION.application.Service
         public async Task AddUser(UserDto userDto)
         {
             await ValidateEmailNotExistsAsync(userDto.Email);
-            var user  = ToUser(userDto);
+            var user = ToUser(userDto);
 
             await _userRepository.AddSync(user);
             var envelope = createEnvelope(user, "UserCreation");
@@ -57,7 +50,7 @@ namespace API_AUTENTICATION.application.Service
             }
         }
 
-      
+
         private MessageEnvelope<User> createEnvelope(User user, string eventType)
         {
             MessageEnvelope<User> envelope = new MessageEnvelope<User>
@@ -82,8 +75,8 @@ namespace API_AUTENTICATION.application.Service
 
         public async Task CheckserExists(string userId)
         {
-         
-             await _userRepository.SetUserAsVerifiedAsync(userId);
+
+            await _userRepository.SetUserAsVerifiedAsync(userId);
 
             int IdNumber = Convert.ToInt32(userId);
 
@@ -93,9 +86,9 @@ namespace API_AUTENTICATION.application.Service
                 throw new KeyNotFoundException($"User with ID {IdNumber} not found.");
             }
 
-            var UserEnvelope  =  createEnvelope(user, "UserVerification");
+            var UserEnvelope = createEnvelope(user, "UserVerification");
 
-            await _queueSender.SendUserToQueueAsync(UserEnvelope); 
+            await _queueSender.SendUserToQueueAsync(UserEnvelope);
 
             return;
         }

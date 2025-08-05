@@ -1,6 +1,6 @@
-﻿namespace API_AUTENTICATION
-{
-    public class _
-    {
-    }
-}
+﻿# Arquivos gerados automaticamente
+bin/
+obj/
+.vs/
+appsettings.json
+appsettings.Development.json
