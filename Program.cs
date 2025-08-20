@@ -43,7 +43,7 @@ builder.Services.AddSingleton(jwtConfig);
 builder.Services.AddSingleton<ITokenService>(new TokenService(jwtConfig.SecretKey, jwtConfig.Issuer, jwtConfig.Audience));
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserQueueSender, QueueSender>();
+builder.Services.AddScoped<IUserQueueSender, RabbitMqUserPublisher>();
 builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddControllers();

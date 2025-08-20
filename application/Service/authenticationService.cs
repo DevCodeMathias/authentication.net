@@ -20,12 +20,7 @@ namespace API_AUTENTICATION.application.Service
         public async Task<bool> login(string email, string password)
         {
             User user = await _userRepository.getUserByEmail(email);
-            if (user == null)
-            {
-                return false;
-            }
-
-            if(user.IsVerified == false)
+            if (user == null && user.IsVerified == false )
             {
                 return false;
             }

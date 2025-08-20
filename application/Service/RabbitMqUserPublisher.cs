@@ -8,12 +8,12 @@ using System.Text;
 
 
 
-public class QueueSender : IUserQueueSender
+public class RabbitMqUserPublisher : IUserQueueSender
 {
     private readonly IConnection _connection;   
     private readonly string _queueName;
 
-    public QueueSender(IConnection channel, IConfiguration configuration)
+    public RabbitMqUserPublisher(IConnection channel, IConfiguration configuration)
     {
         _connection = channel;
         _queueName = configuration["RabbitMQ:QueueName"];
