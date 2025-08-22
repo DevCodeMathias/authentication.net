@@ -24,6 +24,18 @@ namespace API_AUTENTICATION.infrastructure.middleware
             {
                 await HandleExceptionAsync(context, ex, StatusCodes.Status409Conflict);
             }
+            catch (BusinessException ex)
+            {
+                await HandleExceptionAsync(context, ex, StatusCodes.Status400BadRequest);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                await HandleExceptionAsync(context, ex, StatusCodes.Status404NotFound);
+            }
+            catch (Exception ex)
+            {
+                await HandleExceptionAsync(context,ex, StatusCodes.Status500InternalServerError);
+            }
         }
 
         private static async Task HandleExceptionAsync(HttpContext context, Exception ex, int statusCode)

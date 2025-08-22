@@ -26,7 +26,6 @@ public class RabbitMqUserPublisher : IUserQueueSender
     {
         using var channel = _connection.CreateModel();
         
-        
         var mainQueuArgs = new Dictionary<string, object>
         {
             { "x-dead-letter-exchange", _deadLetterQueueName + ".exchange" },
@@ -58,6 +57,8 @@ public class RabbitMqUserPublisher : IUserQueueSender
             exchange: _deadLetterQueueName + ".exchange",
             routingKey: _deadLetterQueueName
         );
+        
+        
         var message = JsonConvert.SerializeObject(user);
         var body = Encoding.UTF8.GetBytes(message);
 

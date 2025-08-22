@@ -17,19 +17,9 @@ namespace API_AUTENTICATION.application.controller
         [HttpGet("{userId}")]
         public async Task<IActionResult> Check(string userId)
         {
-            try
-            {
                  await _userService.CheckserExists(userId);
                 return Ok("Usuário ativado com sucesso.");
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Erro interno: {ex.Message}");
-            }
+
         }
     }
 
