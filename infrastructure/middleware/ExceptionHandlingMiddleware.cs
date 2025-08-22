@@ -23,6 +23,7 @@ namespace API_AUTENTICATION.infrastructure.middleware
             catch (EmailAlreadyExistsException ex)
             {
                 await HandleExceptionAsync(context, ex, StatusCodes.Status409Conflict);
+                await HandleExceptionAsync(context, ex, StatusCodes.Status409Conflict);
             }
             catch (BusinessException ex)
             {

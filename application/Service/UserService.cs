@@ -28,9 +28,6 @@ namespace API_AUTENTICATION.application.Service
 
         public async Task AddUser(UserDto userDto)
         {
-
-            try
-            {
                 await ValidateEmailNotExistsAsync(userDto.Email);
                 var user = ToUser(userDto);
 
@@ -38,15 +35,8 @@ namespace API_AUTENTICATION.application.Service
                 var envelope = createEnvelope(user, "UserCreation");
 
                 await _queueSender.SendUserToQueueAsync(envelope);
+                
 
-
-                return;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error adding user: {ex.Message}", ex);
-
-            }
         }
 
         private async Task ValidateEmailNotExistsAsync(string email)
@@ -57,6 +47,7 @@ namespace API_AUTENTICATION.application.Service
             {
                 throw new EmailAlreadyExistsException();
             }
+            return;
         }
 
 
@@ -84,8 +75,6 @@ namespace API_AUTENTICATION.application.Service
 
         public async Task CheckserExists(string userId)
         {
-            try
-            {
                 await _userRepository.SetUserAsVerifiedAsync(userId);
 
                 int IdNumber = Convert.ToInt32(userId);
@@ -101,14 +90,6 @@ namespace API_AUTENTICATION.application.Service
                 await _queueSender.SendUserToQueueAsync(UserEnvelope);
 
                 return;
-
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error checking user existence: {ex.Message}", ex);
-            }
-         
         }
-
     }
 }
