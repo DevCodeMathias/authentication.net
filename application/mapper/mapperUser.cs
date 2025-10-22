@@ -5,12 +5,12 @@ namespace API_AUTENTICATION.application.mapper
 {
     public class mapperUser
     {
-        public static User toDomain(UserDto userDto)
+        public static User toDomain(UserRequestDto userRequestDto)
         {
             return new User
             {
-                Email = userDto.Email,
-                PasswordHash = userDto.PasswordHash,
+                Email = userRequestDto.Email,
+                PasswordHash = userRequestDto.PasswordHash,
                 IsVerified = false,
             };
         }

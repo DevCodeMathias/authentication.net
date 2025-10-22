@@ -26,10 +26,10 @@ namespace API_AUTENTICATION.application.Service
 
         }
 
-        public async Task AddUser(UserDto userDto)
+        public async Task AddUser(UserRequestDto userRequestDto)
         {
-                await ValidateEmailNotExistsAsync(userDto.Email);
-                var user = ToUser(userDto);
+                await ValidateEmailNotExistsAsync(userRequestDto.Email);
+                var user = ToUser(userRequestDto);
 
                 await _userRepository.AddSync(user);
                 var envelope = createEnvelope(user, "UserCreation");
@@ -38,7 +38,7 @@ namespace API_AUTENTICATION.application.Service
                 
 
         }
-
+        
         private async Task ValidateEmailNotExistsAsync(string email)
         {
             User user = await _userRepository.getUserByEmail(email);
@@ -65,10 +65,10 @@ namespace API_AUTENTICATION.application.Service
         }
 
 
-        private User ToUser(UserDto userDto)
+        private User ToUser(UserRequestDto userRequestDto)
         {
-            User user = mapperUser.toDomain(userDto);
-            user.PasswordHash = _passwordHasher.HashPassword(user, userDto.PasswordHash);
+            User user = mapperUser.toDomain(userRequestDto);
+            user.PasswordHash = _passwordHasher.HashPassword(user, userRequestDto.PasswordHash);
 
             return user;
         }
@@ -79,17 +79,15 @@ namespace API_AUTENTICATION.application.Service
 
                 int IdNumber = Convert.ToInt32(userId);
 
+                
+                //TESTAAR O RETORNO DISSO AUQI 
                 var user = await _userRepository.GetUserByIdAsync(IdNumber);
                 if (user == null)
                 {
                     throw new KeyNotFoundException($"User with ID {IdNumber} not found.");
                 }
+            ;
 
-                var UserEnvelope = createEnvelope(user, "UserVerification");
-
-                await _queueSender.SendUserToQueueAsync(UserEnvelope);
-
-                return;
         }
     }
 }

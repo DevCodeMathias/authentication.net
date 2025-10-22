@@ -2,7 +2,8 @@
 
 namespace API_AUTENTICATION.application.dto
 {
-    public class UserDto
+    //response
+    public class UserRequestDto
     {
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress(ErrorMessage = "Please enter a valid email address")]

@@ -14,13 +14,12 @@ namespace API_AUTENTICATION.application.controller
             _userService = userService;
         }
 
-        [HttpGet("{userId}")]
+        [HttpPatch("{userId}")]
         public async Task<IActionResult> Check(string userId)
         {
                  await _userService.CheckserExists(userId);
-                return Ok("Usuário ativado com sucesso.");
+                return Ok("User Acticve.");
 
         }
     }
-
 }

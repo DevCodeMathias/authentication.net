@@ -6,7 +6,7 @@ namespace API_AUTENTICATION.domain.Interfaces.Service
 {
     public interface IUserService
     {
-        Task AddUser(UserDto userDto);
+        Task AddUser(UserRequestDto userRequestDto);
 
         Task CheckserExists(String userId);
     }

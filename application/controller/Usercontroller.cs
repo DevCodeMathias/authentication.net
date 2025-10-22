@@ -22,9 +22,9 @@ namespace API_AUTENTICATION.application.controller
 
 
         [HttpPost("Register")]
-        public async Task<IActionResult> Post([FromBody] UserDto user)
+        public async Task<IActionResult> Post([FromBody] UserRequestDto userRequest)
         {
-            await _userService.AddUser(user);
+            await _userService.AddUser(userRequest);
             return StatusCode(201, new
             {
                 message = "Registration successfuly",
@@ -33,17 +33,16 @@ namespace API_AUTENTICATION.application.controller
         }
 
         [HttpPost("Login")]
-        public async Task<IActionResult> Login([FromBody] UserDto user)
+        public async Task<IActionResult> Login([FromBody] UserRequestDto userRequest)
         {
-
-            bool isAuthenticated = await _authenticationService.login(user.Email, user.PasswordHash);
+            bool isAuthenticated = await _authenticationService.login(userRequest.Email, userRequest.PasswordHash);
 
             if (!isAuthenticated)
             {
-                return Unauthorized("password or username Invalid.");
+                return Unauthorized(new { message = "password or username Invalid." });
             }
 
-            string jwtToken = _tokenService.GenerateToken(user.Email);
+            string jwtToken = _tokenService.GenerateToken(userRequest.Email);
 
             return Ok(new { Token = jwtToken });
         }

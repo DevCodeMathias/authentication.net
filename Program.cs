@@ -1,5 +1,5 @@
 using API_AUTENTICATION.application.Service;
-using API_AUTENTICATION.config;
+
 using API_AUTENTICATION.domain.Interfaces.Repository;
 using API_AUTENTICATION.domain.Interfaces.Service;
 using API_AUTENTICATION.infrastructure.middleware;
@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RabbitMQ.Client;
 using System.Text;
+using API_AUTENTICATION.application.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,9 +40,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 // ===== DI app =====
-builder.Services.AddSingleton(jwtConfig);
-builder.Services.AddSingleton<ITokenService>(new TokenService(jwtConfig.SecretKey, jwtConfig.Issuer, jwtConfig.Audience));
+builder.Services.AddSingleton<ITokenService,TokenService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddMemoryCache();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserQueueSender, RabbitMqUserPublisher>();
 builder.Services.AddScoped<IUserService, UserService>();

@@ -1,7 +1,6 @@
 ﻿using API_AUTENTICATION.domain.Interfaces.Repository;
 using API_AUTENTICATION.domain.Interfaces.Service;
 using authentication_API.domain.entities;
-using authentication_API.infrastructure.repositories;
 using Microsoft.AspNetCore.Identity;
 
 namespace API_AUTENTICATION.application.Service
@@ -19,14 +18,25 @@ namespace API_AUTENTICATION.application.Service
 
         public async Task<bool> login(string email, string password)
         {
-            User user = await _userRepository.getUserByEmail(email);
-            if (user == null && user.IsVerified == false )
+            var user = await _userRepository.getUserByEmail(email);
+
+            if (user == null)
             {
                 return false;
             }
 
-            PasswordVerificationResult result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, password);
-            return result == PasswordVerificationResult.Success;
+            var result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, password);
+            if (result != PasswordVerificationResult.Success)
+            {
+                return false;
+            }
+
+            if (!user.IsVerified)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
