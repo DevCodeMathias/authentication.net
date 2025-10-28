@@ -1,0 +1,29 @@
+﻿pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', credentialsId: 'github-token', url: 'https://github.com/DevCodeMathias/authentication.net'
+            }
+        }
+
+        stage('Build') {
+    steps {
+        bat 'dotnet build API_AUTHENTICATION.sln -c Release'
+            }
+}
+
+
+stage('Publish') {
+    steps {
+        bat 'dotnet publish authentication.net/API_AUTHENTICATION.csproj -c Release -o artifacts'
+            }
+}
+    }
+}
+
+
+
+
+
