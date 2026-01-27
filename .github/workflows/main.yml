@@ -23,5 +23,7 @@ jobs:
 
       - name: Build
         run: dotnet build ./API_AUTENTICATION.csproj -c Release --no-restore
-
+      
+      - name: Publish 
+        run: dotnet publish ./API_AUTENTICATION.csproj -c Release -o out --no-build
  
