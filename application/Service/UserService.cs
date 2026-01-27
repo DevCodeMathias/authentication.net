@@ -79,8 +79,7 @@ namespace API_AUTENTICATION.application.Service
 
                 int IdNumber = Convert.ToInt32(userId);
 
-                
-                //TESTAAR O RETORNO DISSO AUQI 
+            
                 var user = await _userRepository.GetUserByIdAsync(IdNumber);
                 if (user == null)
                 {

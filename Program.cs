@@ -44,7 +44,7 @@ builder.Services.AddSingleton<ITokenService,TokenService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddMemoryCache();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserQueueSender, RabbitMqUserPublisher>();
+builder.Services.AddScoped<IUserQueueSender, RabbitMq>();
 builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddControllers();

@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "Novo Perfil",
+    "Projects": [
+      {
+        "Path": "API_AUTENTICATION.csproj",
+        "Action": "Start",
+        "DebugTarget": "http"
+      },
+      {
+        "Path": "..\\OnboardingWorker\\OnboardingWorker.csproj",
+        "Action": "Start",
+        "DebugTarget": "OnboardingWorker"
+      }
+    ]
+  }
+]
