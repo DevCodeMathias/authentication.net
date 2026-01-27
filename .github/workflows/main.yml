@@ -17,9 +17,9 @@ jobs:
           dotnet-version: "8.0.x"
 
       - name: Restore
-        run: dotnet restore ./API_AUTHENTICATION.sln
+        run: dotnet restore ./API_AUTENTICATION.csproj
 
       - name: Build
-        run: dotnet build -c Release --no-restore ./API_AUTHENTICATION.sln -c Release --no-restore
+        run: dotnet build -c Release --no-restore ./API_AUTENTICATION.csproj -c Release --no-restore
 
  
