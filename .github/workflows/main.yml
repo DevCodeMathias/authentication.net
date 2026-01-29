@@ -33,6 +33,9 @@ jobs:
       - name: Publish 
         run: dotnet publish ./API_AUTENTICATION.csproj -c Release -o out --no-build
 
+      - name: Set image owner (lowercase)
+        run: echo "IMAGE_OWNER=${GITHUB_REPOSITORY_OWNER,,}" >> $GITHUB_EN
+
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
